@@ -1,0 +1,10 @@
+CLASS COLORS
+
+      1 normal = #2CDD1D
+      2 disorg = #F03636
+      3 transpos = #FFFF00
+      4 CCD = #FFA03B
+      5 single_tubule = #00FFFF
+      6 extra_tubule = #0000FF
+      7 compound = #F353E3
+      8 other = #9F00FF
