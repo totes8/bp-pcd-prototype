@@ -8774,6 +8774,7 @@
 
       const delbtn = document.getElementById("u1729");
       delbtn.style.display = "none";
+      assistandWindow.style.display = "none";
 
       const overviewPanel1 = document.getElementById("u1264");
       overviewPanel1.style.display = "none";
@@ -9768,6 +9769,7 @@
 
       analysis_btn.addEventListener("click", function (event) {
         console.log("analysis click");
+        assistandWindow.style.display = "block";
 
         if (currentFile == 1) {
           /*const mutatedAnnotations = annotations1.map((annotation) =>
