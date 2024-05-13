@@ -82,8 +82,8 @@
           ></canvas>
           <svg
             id="svgContainer"
-            width="1500"
-            height="920"
+            width="200"
+            height="200"
             style="position: absolute; top: 115; left: 186.5"
           ></svg>
         </div>
@@ -173,7 +173,7 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1072" class="ax_default label1" style="margin-left: -120px;">
+        <div id="u1072" class="ax_default label1" style="margin-left: -120px">
           <div id="u1072_div" class=""></div>
           <div id="u1072_text" class="text">
             <p><span>Statistics</span></p>
@@ -181,7 +181,7 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1073" class="ax_default label1" style="margin-left: -20px;">
+        <div id="u1073" class="ax_default label1" style="margin-left: -20px">
           <div id="u1073_div" class=""></div>
           <div id="u1073_text" class="text">
             <p><span>Comments</span></p>
@@ -1820,7 +1820,7 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1206" class="ax_default label1" style="margin-left: -120px;">
+        <div id="u1206" class="ax_default label1" style="margin-left: -120px">
           <div id="u1206_div" class=""></div>
           <div id="u1206_text" class="text">
             <p><span>Statistics</span></p>
@@ -1885,7 +1885,7 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1212" class="ax_default label1" style="margin-left: -120px;">
+        <div id="u1212" class="ax_default label1" style="margin-left: -120px">
           <div id="u1212_div" class=""></div>
           <div id="u1212_text" class="text">
             <p><span>Statistics</span></p>
@@ -1893,7 +1893,7 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1213" class="ax_default label1" style="margin-left: -20px;">
+        <div id="u1213" class="ax_default label1" style="margin-left: -20px">
           <div id="u1213_div" class=""></div>
           <div id="u1213_text" class="text">
             <p><span>Comments</span></p>
@@ -2496,15 +2496,15 @@
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1265" class="ax_default label1" style="margin-left: -120px;">
+        <div id="u1265" class="ax_default label1" style="margin-left: -120px">
           <div id="u1265_div" class=""></div>
           <div id="u1265_text" class="text">
-            <p><span>Statistics</span></p>
+            <p><span id="statSpan">Statistics</span></p>
           </div>
         </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u1266" class="ax_default label1" style="margin-left: -20px;">
+        <div id="u1266" class="ax_default label1" style="margin-left: -20px">
           <div id="u1266_div" class=""></div>
           <div id="u1266_text" class="text">
             <p><span>Comments</span></p>
@@ -8766,11 +8766,11 @@
       let annotationsList5 = [];
 
       const assistandWindow = document.getElementById("u1711");
-      assistandWindow.style.pointerEvents = "none";
+      //assistandWindow.style.pointerEvents = "none";
       const assistandWindow2 = document.getElementById("u1713");
-      assistandWindow2.style.pointerEvents = "auto";
+      //assistandWindow2.style.pointerEvents = "auto";
       const assistandWindow3 = document.getElementById("u1732");
-      assistandWindow3.style.pointerEvents = "auto";
+      //assistandWindow3.style.pointerEvents = "auto";
 
       const overviewPanel1 = document.getElementById("u1264");
       overviewPanel1.style.display = "none";
@@ -8780,6 +8780,34 @@
       overviewPanel3.style.display = "none";
       const panel = document.getElementById("u1262");
       panel.style.display = "none";
+
+      const a = document.getElementById("u1066");
+      a.style.display = "none";
+      const b = document.getElementById("u1279");
+      b.style.display = "none";
+      const c = document.getElementById("u1280");
+      c.style.display = "none";
+      const d = document.getElementById("u1268");
+      d.style.display = "none";
+      const e = document.getElementById("u1269");
+      e.style.display = "none";
+      const f = document.getElementById("u1275");
+      f.style.display = "none";
+      const g = document.getElementById("u1276");
+      g.style.display = "none";
+      const h = document.getElementById("u1277");
+      h.style.display = "none";
+      const j = document.getElementById("u1278");
+      j.style.display = "none";
+
+      const overviewBtn = document.getElementById("u1325");
+      const statBtn = document.getElementById("statSpan");
+
+      overviewBtn.addEventListener("click", function (event) {
+        setTimeout(function () {}, 1000);
+        console.log("aaaaa");
+        statBtn.click();
+      });
 
       class Annotation {
         constructor(cx, cy, radius, fill, strokeWidth, opacity, state) {
@@ -8792,8 +8820,15 @@
           this.opacity = opacity;
           this.state = state;
           this.arms = "undefined";
-          if (currentFile == 1) {
-            this.confidence = setConfidenceStrong();
+          if (currentFile == 1 || currentFile == 2 || currentFile == 3) {
+            mutateAnnotation(this);
+            this.confidence = setConfidenceStrong(
+              annotations1,
+              annotationsList1
+            );
+          } else {
+            mutateAnnotation2(this);
+            this.confidence = setConfidenceWeak();
           }
 
           lastId += 1;
@@ -8816,13 +8851,13 @@
           if (currentFile == 1) {
             annotationsList1.push(this);
           } else if (currentFile == 2) {
-            annotationsList2.push(this)
+            annotationsList2.push(this);
           } else if (currentFile == 3) {
-            annotationsList3.push(this)
+            annotationsList3.push(this);
           } else if (currentFile == 4) {
-            annotationsList4.push(this)
+            annotationsList4.push(this);
           } else if (currentFile == 5) {
-            annotationsList5.push(this)
+            annotationsList5.push(this);
           }
 
           allAnnotations.push(this);
@@ -8969,13 +9004,16 @@
               this.element.classList.contains("hovered")
             ) {
               console.log("annot removed");
-              var newAnnotationList = allAnnotations.filter(item => {return item.id !== this.id})
-            allAnnotations = newAnnotationList;
+              var newAnnotationList = allAnnotations.filter((item) => {
+                return item.id !== this.id;
+              });
+              allAnnotations = newAnnotationList;
+              this.element.classList.remove("hovered");
+              hovered = false;
               this.element.remove();
             }
             updateStatistics(allAnnotations);
           });
-
         }
       }
 
@@ -8985,12 +9023,78 @@
         annotation.state = "Accepted";
       }
 
-      function setConfidenceStrong() {
+      function setConfidenceStrong(list1, list2) {
+        if (currentFile == 1 || currentFile == 3) {
+          for (let i = 0; i < Math.min(list1.length, list2.length); i++) {
+            const value1 = list1[i][2];
+            const value2 = list2[i].fill;
+
+            if (value1 === value2) {
+              console.log("equal values");
+              const randomChance = Math.random() * 100;
+              if (randomChance < 10) {
+                list2[i].confidence = 55;
+              } else if (randomChance < 15) {
+                list2[i].confidence = 10;
+              } else {
+                list2[i].confidence = 90;
+              }
+            } else {
+              console.log("NOT equal values");
+              // If values are not equal, 20% chance for medium, 30% for low
+              const randomChance = Math.random() * 100;
+              if (randomChance < 30) {
+                list2[i].confidence = 55;
+              } else if (randomChance < 80) {
+                list2[i].confidence = 10;
+              } else {
+                list2[i].confidence = 90;
+              }
+            }
+          }
+        } else if (currentFile == 2 || currentFile == 4 || currentFile == 5) {
+          for (let i = 0; i < Math.min(list1.length, list2.length); i++) {
+            const value1 = list1[i][2];
+            const value2 = list2[i].fill;
+
+            if (value1 === value2) {
+              console.log("equal values");
+              const randomChance = Math.random() * 100;
+              if (randomChance < 10) {
+                list2[i].confidence = 55;
+              } else if (randomChance < 15) {
+                list2[i].confidence = 10;
+              } else {
+                list2[i].confidence = 90;
+              }
+            } else {
+              console.log("NOT equal values");
+              // If values are not equal, 20% chance for medium, 30% for low
+              const randomChance = Math.random() * 100;
+              if (randomChance < 30) {
+                list2[i].confidence = 55;
+              } else if (randomChance < 80) {
+                list2[i].confidence = 10;
+              } else {
+                list2[i].confidence = 90;
+              }
+            }
+          }
+        }
+      }
+
+      function acceptAnnotation(annotation) {
+        annotation.element.setAttribute("fill-opacity", "0.5");
+        annotation.element.setAttribute("stroke-width", "2");
+        annotation.state = "Accepted";
+      }
+
+      function setConfidenceWeak() {
         const randomNumber = Math.random() * 100;
 
-        if (randomNumber < 70) {
-          return Math.floor(Math.random() * 26) + 75;
-        } else if (randomNumber < 90) {
+        if (randomNumber < 80) {
+          return Math.floor(Math.random() * 26) + 10;
+        } else if (randomNumber < 40) {
           return Math.floor(Math.random() * 25) + 50;
         } else {
           return Math.floor(Math.random() * 50);
@@ -9013,10 +9117,15 @@
         annotation.element.addEventListener("contextmenu", function (event) {
           event.preventDefault();
           if (annotation.element.classList.contains("hovered")) {
-            var newAnnotationList = allAnnotations.filter(item => {return item.id !== annotation.id})
+            var newAnnotationList = allAnnotations.filter((item) => {
+              return item.id !== annotation.id;
+            });
             allAnnotations = newAnnotationList;
+            annotation.element.classList.remove("hovered");
+            hovered = false;
             annotation.element.remove();
-            
+            console.log(allAnnotations);
+
             updateStatistics(allAnnotations);
           }
         });
@@ -9219,7 +9328,6 @@
             svgContainer.appendChild(annotation.element);
             setupListeners(annotation);
             updateStatistics(allAnnotations);
-            
           }
         });
       }
@@ -9378,18 +9486,32 @@
       ];
 
       const annotations2 = [
-    [1820, 767, "#2CDD1D"],
-    [1901, 1994, "#2CDD1D"]
-];
+        [1820, 767, "#2CDD1D"],
+        [1901, 1994, "#2CDD1D"],
+      ];
 
       const annotations3 = [
-    [1795, 1541, "#F03636"],
-    [1157, 522, "#F03636"],
-    [2382, 560, "#2CDD1D"],
-    [2307, 1166, "#2CDD1D"],
-    [2678, 2126, "#F03636"],
-    [570, 462, "#F03636"]
-];
+        [1795, 1541, "#F03636"],
+        [1157, 522, "#F03636"],
+        [2382, 560, "#2CDD1D"],
+        [2307, 1166, "#2CDD1D"],
+        [2678, 2126, "#F03636"],
+        [570, 462, "#F03636"],
+      ];
+
+      const annotations4 = [[1795, 1219, "#2CDD1D"]];
+
+      const annotations5 = [
+        [2436, 2032, "#00FFFF"],
+        [1059, 1943, "#0000FF"],
+        [431, 2439, "#00FFFF"],
+        [1786, 2289, "#2CDD1D"],
+        [2179, 968, "#2CDD1D"],
+        [1474, 1113, "#2CDD1D"],
+        [1008, 634, "#00FFFF"],
+        [3115, 322, "#0000FF"],
+        [392, 737, "#2CDD1D"],
+      ];
       const normalCountLabel = document.getElementById("u1115_text");
       const disorgMTCountLabel = document.getElementById("u1116_text");
       const transposCountLabel = document.getElementById("u1117_text");
@@ -9418,6 +9540,35 @@
 
       const determinedArmsLabel = document.getElementById("u1195_text");
 
+      const remainingLabel = document.getElementById("u1204");
+      remainingLabel.style.display = "none";
+      const remainingCount = document.getElementById("u1205");
+      remainingCount.style.display = "none";
+
+      const totalCiliaLabel = document.getElementById("u1192");
+      totalCiliaLabel.style.marginTop = "-40px";
+      totalCountLabel.style.marginTop = "-40px";
+
+      const determinedLabel = document.getElementById("u1193");
+      determinedLabel.style.marginTop = "-40px";
+      determinedArmsLabel.style.marginTop = "-40px";
+
+      const MTDLabel = document.getElementById("u1203_text");
+      const IADLabel = document.getElementById("u1202_text");
+      const OADLabel = document.getElementById("u1201_text");
+
+      MTDLabel.style.marginTop = "-50px";
+      IADLabel.style.marginTop = "-50px";
+      OADLabel.style.marginTop = "-50px";
+
+      const MTDLabel2 = document.getElementById("u1198_text");
+      const IADLabel2 = document.getElementById("u1199_text");
+      const OADLabel2 = document.getElementById("u1200_text");
+
+      MTDLabel2.style.marginTop = "-50px";
+      IADLabel2.style.marginTop = "-50px";
+      OADLabel2.style.marginTop = "-50px";
+
       function updateStatistics(annotationsList) {
         let totalCount = 0;
         let normalCount = 0;
@@ -9435,116 +9586,154 @@
         let outerCount = 0;
         let innerCount = 0;
 
+        let MTD = 0;
+        let IAD = 0;
+        let OAD = 0;
+
+        undefinedArmsLabel.innerHTML = undefinedCount;
+        bothArmsLabel.innerHTML = bothCount;
+        noArmsLabel.innerHTML = noCount;
+        innerArmsLabel.innerHTML = innerCount;
+        outerArmsLabel.innerHTML = outerCount;
+
         console.log("UPDATE STATISTICS, normal count: " + normalCount);
         annotationsList.forEach(function (annotation) {
           if (annotation.state == "Accepted") {
             totalCount += 1;
-            totalCountLabel.innerHTML = totalCount;
 
             if (annotation.fill == "#2CDD1D") {
               normalCount += 1;
-              
             } else if (annotation.fill == "#F03636") {
               disorgMTCount += 1;
             } else if (annotation.fill == "#FFFF00") {
               transposCount += 1;
-              
             } else if (annotation.fill == "#FFA03B") {
               CCDCount += 1;
-              
             } else if (annotation.fill == "#00FFFF") {
               singleTubuleCount += 1;
-              
             } else if (annotation.fill == "#0000FF") {
               extraTubuleCount += 1;
-              
             } else if (annotation.fill == "#F353E3") {
               compoudCount += 1;
-              
             } else if (annotation.fill == "#9F00FF") {
               otherDefectCount += 1;
-              
             }
-            normalCountLabel.innerHTML = normalCount;
-            disorgMTCountLabel.innerHTML = disorgMTCount;
-            transposCountLabel.innerHTML = transposCount;
-            CCDCountLabel.innerHTML = CCDCount;
-            singleTubuleCountLabel.innerHTML = singleTubuleCount;
-            extraTubuleCountLabel.innerHTML = extraTubuleCount;
-            compoundCountLabel.innerHTML = compoudCount;
-            otherDefectCountLabel.innerHTML = otherDefectCount;
 
             if (annotation.arms == "undefined") {
               undefinedCount += 1;
             } else if (annotation.arms == "bothMissing") {
               bothCount += 1;
-             
             } else if (annotation.arms == "noMissing") {
               noCount += 1;
-              
             } else if (annotation.arms == "innerMissing") {
               innerCount += 1;
-              
             } else if (annotation.arms == "outerMissing") {
               outerCount += 1;
-              
             }
-            undefinedArmsLabel.innerHTML = undefinedCount;
-            bothArmsLabel.innerHTML = bothCount;
-            noArmsLabel.innerHTML = noCount;
-            innerArmsLabel.innerHTML = innerCount;
-            outerArmsLabel.innerHTML = outerCount;
-
-            normalPercentageLabel.innerHTML = (normalCount/totalCount*100).toFixed(0) + "%";
-            disorgMTPercentageLabel.innerHTML = (disorgMTCount/totalCount*100).toFixed(0) + "%";
-            transposPercentageLabel.innerHTML = (transposCount/totalCount*100).toFixed(0) + "%";
-            CCDPercentageLabel.innerHTML = (CCDCount/totalCount*100).toFixed(0) + "%";
-            singleTubulePercentageLabel.innerHTML = (singleTubuleCount/totalCount*100).toFixed(0) + "%";
-            extraTubulePercentageLabel.innerHTML = (extraTubuleCount/totalCount*100).toFixed(0) + "%";
-            compoundPercentageLabel.innerHTML = (compoudCount/totalCount*100).toFixed(0) + "%";
-            otherDefectPercentageLabel.innerHTML = (otherDefectCount/totalCount*100).toFixed(0) + "%";
-            determinedArmsLabel.innerHTML = (bothCount + noCount + innerCount + outerCount) + "/" + (((bothCount + noCount + innerCount + outerCount)/totalCount).toFixed(0))*100 + "%";
+            normalPercentageLabel.innerHTML =
+              ((normalCount / totalCount) * 100).toFixed(0) + "%";
+            disorgMTPercentageLabel.innerHTML =
+              ((disorgMTCount / totalCount) * 100).toFixed(0) + "%";
+            transposPercentageLabel.innerHTML =
+              ((transposCount / totalCount) * 100).toFixed(0) + "%";
+            CCDPercentageLabel.innerHTML =
+              ((CCDCount / totalCount) * 100).toFixed(0) + "%";
+            singleTubulePercentageLabel.innerHTML =
+              ((singleTubuleCount / totalCount) * 100).toFixed(0) + "%";
+            extraTubulePercentageLabel.innerHTML =
+              ((extraTubuleCount / totalCount) * 100).toFixed(0) + "%";
+            compoundPercentageLabel.innerHTML =
+              ((compoudCount / totalCount) * 100).toFixed(0) + "%";
+            otherDefectPercentageLabel.innerHTML =
+              ((otherDefectCount / totalCount) * 100).toFixed(0) + "%";
+            determinedArmsLabel.innerHTML =
+              bothCount +
+              noCount +
+              innerCount +
+              outerCount +
+              "/" +
+              (
+                (bothCount + noCount + innerCount + outerCount) /
+                totalCount
+              ).toFixed(0) *
+                100 +
+              "%";
           }
         });
+        normalCountLabel.innerHTML = normalCount;
+        disorgMTCountLabel.innerHTML = disorgMTCount;
+        transposCountLabel.innerHTML = transposCount;
+        CCDCountLabel.innerHTML = CCDCount;
+        singleTubuleCountLabel.innerHTML = singleTubuleCount;
+        extraTubuleCountLabel.innerHTML = extraTubuleCount;
+        compoundCountLabel.innerHTML = compoudCount;
+        otherDefectCountLabel.innerHTML = otherDefectCount;
+        totalCountLabel.innerHTML = totalCount;
+
+        MTDLabel.innerHTML =
+          disorgMTCount +
+          transposCount +
+          CCDCount +
+          extraTubuleCount +
+          singleTubuleCount +
+          compoudCount +
+          otherDefectCount;
+
+        IADLabel.innerHTML = innerCount + bothCount;
+        OADLabel.innerHTML = outerCount + bothCount;
+
+        if (totalCount == 0) {
+          determinedArmsLabel.innerHTML = "0/0%";
+        }
       }
 
       // buttons a event listenery
       const slide1_btn = document.getElementById("u1228");
       const slide2_btn = document.getElementById("u1235");
       const slide3_btn = document.getElementById("u1240");
-      const slide4_btn = document.getElementById("u181");
-      const slide5_btn = document.getElementById("u186");
+      const slide4_btn = document.getElementById("u1245");
+      const slide5_btn = document.getElementById("u1250");
 
       slide1_btn.addEventListener("click", function () {
         while (svgContainer.firstChild) {
-    svgContainer.removeChild(svgContainer.firstChild);
-}
+          svgContainer.removeChild(svgContainer.firstChild);
+        }
         currentFile = 1;
         dotRadius = 20;
         displayImage("images/iteration_2/Tv19.jpg", "image_1");
       });
       slide2_btn.addEventListener("click", function () {
         while (svgContainer.firstChild) {
-    svgContainer.removeChild(svgContainer.firstChild);
-}
+          svgContainer.removeChild(svgContainer.firstChild);
+        }
         currentFile = 2;
         dotRadius = 20;
         displayImage("images/iteration_2/Tv7.jpg");
       });
       slide3_btn.addEventListener("click", function () {
         while (svgContainer.firstChild) {
-    svgContainer.removeChild(svgContainer.firstChild);
-}
+          svgContainer.removeChild(svgContainer.firstChild);
+        }
         currentFile = 3;
         dotRadius = 20;
         displayImage("images/iteration_2/Tv17.jpg");
-      });/*
+      });
       slide4_btn.addEventListener("click", function () {
+        while (svgContainer.firstChild) {
+          svgContainer.removeChild(svgContainer.firstChild);
+        }
+        currentFile = 4;
+        dotRadius = 20;
         displayImage("images/iteration_2/Tv26.jpg");
       });
       slide5_btn.addEventListener("click", function () {
+        while (svgContainer.firstChild) {
+          svgContainer.removeChild(svgContainer.firstChild);
+        }
+        currentFile = 5;
+        dotRadius = 20;
         displayImage("images/iteration_2/Tv10.jpg");
-      });*/
+      });
 
       // zobrazenie obrazku v canvase
       function displayImage(imageUrl, imageID) {
@@ -9578,11 +9767,11 @@
         console.log("analysis click");
 
         if (currentFile == 1) {
-          const mutatedAnnotations = annotations1.map((annotation) =>
+          /*const mutatedAnnotations = annotations1.map((annotation) =>
             mutateAnnotation(annotation)
-          );
+          );*/
           console.log("analysis img 1");
-          drawAnnotations(mutatedAnnotations);
+          drawAnnotations(annotations1);
 
           var currentImageLabel = document.getElementById("currentImage");
 
@@ -9657,14 +9846,73 @@
               });
             }
           });
+          var btnMeConf = document.getElementById("u1724_div");
+          var meConfText = document.getElementById("u1725_text");
+          meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
+          var btnMeConfOn = true;
+          // medium confidence listener
+          btnMeConf.addEventListener("click", function (event) {
+            if (btnMeConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnMeConfOn = false;
+
+              annotationsList1.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnMeConfOn = true;
+              annotationsList1.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnLoConf = document.getElementById("u1726_div");
+          var loConfText = document.getElementById("u1727_text");
+          loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
+          var btnLoConfOn = true;
+
+          btnLoConf.addEventListener("click", function (event) {
+            if (btnLoConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnLoConfOn = false;
+
+              annotationsList1.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnLoConfOn = true;
+              annotationsList1.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
         }
         // FILE 2
         if (currentFile == 2) {
-          const mutatedAnnotations = annotations2.map((annotation) =>
+          /*const mutatedAnnotations = annotations2.map((annotation) =>
             mutateAnnotation(annotation)
-          );
+          );*/
           console.log("analysis img 1");
-          drawAnnotations(mutatedAnnotations);
+          drawAnnotations(annotations2);
 
           var currentImageLabel = document.getElementById("currentImage");
           if (currentFile == 2) {
@@ -9738,76 +9986,76 @@
               });
             }
           });
+
+          //medium conf
+          var btnMeConf = document.getElementById("u1724_div");
+          var meConfText = document.getElementById("u1725_text");
+          meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
+          var btnMeConfOn = true;
+          // medium confidence listener
+          btnMeConf.addEventListener("click", function (event) {
+            if (btnMeConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnMeConfOn = false;
+
+              annotationsList2.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnMeConfOn = true;
+              annotationsList2.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnLoConf = document.getElementById("u1726_div");
+          var loConfText = document.getElementById("u1727_text");
+          loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
+          var btnLoConfOn = true;
+
+          btnLoConf.addEventListener("click", function (event) {
+            if (btnLoConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnLoConfOn = false;
+
+              annotationsList2.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnLoConfOn = true;
+              annotationsList2.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
         }
-        
-
-        var btnMeConf = document.getElementById("u1724_div");
-        var meConfText = document.getElementById("u1725_text");
-        meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
-        var btnMeConfOn = true;
-        // medium confidence listener
-        btnMeConf.addEventListener("click", function (event) {
-          if (btnMeConfOn) {
-            this.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            btnMeConfOn = false;
-
-            annotationsList2.forEach(function (annA) {
-              meList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "none");
-                }
-              });
-            });
-          } else {
-            this.style.backgroundColor = "rgba(152, 192, 239, 1)";
-            btnMeConfOn = true;
-            annotationsList2.forEach(function (annA) {
-              meList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "block");
-                }
-              });
-            });
-          }
-        });
-
-        var btnLoConf = document.getElementById("u1726_div");
-        var loConfText = document.getElementById("u1727_text");
-        loConfText.innerHTML = "Show cilia of medium confidence (" + lo + ")";
-        var btnLoConfOn = true;
-
-        btnLoConf.addEventListener("click", function (event) {
-          if (btnLoConfOn) {
-            this.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            btnLoConfOn = false;
-
-            annotationsList2.forEach(function (annA) {
-              loList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "none");
-                }
-              });
-            });
-          } else {
-            this.style.backgroundColor = "rgba(152, 192, 239, 1)";
-            btnLoConfOn = true;
-            annotationsList2.forEach(function (annA) {
-              loList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "block");
-                }
-              });
-            });
-          }
-        });
 
         //FILE 3
         if (currentFile == 3) {
-          const mutatedAnnotations = annotations3.map((annotation) =>
+          /*const mutatedAnnotations = annotations3.map((annotation) =>
             mutateAnnotation(annotation)
-          );
+          );*/
           console.log("analysis img 1");
-          drawAnnotations(mutatedAnnotations);
+          drawAnnotations(annotations3);
 
           var currentImageLabel = document.getElementById("currentImage");
           if (currentFile == 3) {
@@ -9881,70 +10129,351 @@
               });
             }
           });
+
+          var btnMeConf = document.getElementById("u1724_div");
+          var meConfText = document.getElementById("u1725_text");
+          meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
+          var btnMeConfOn = true;
+          // medium confidence listener
+          btnMeConf.addEventListener("click", function (event) {
+            if (btnMeConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnMeConfOn = false;
+
+              annotationsList3.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnMeConfOn = true;
+              annotationsList3.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnLoConf = document.getElementById("u1726_div");
+          var loConfText = document.getElementById("u1727_text");
+          loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
+          var btnLoConfOn = true;
+
+          btnLoConf.addEventListener("click", function (event) {
+            if (btnLoConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnLoConfOn = false;
+
+              annotationsList3.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnLoConfOn = true;
+              annotationsList3.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
         }
-        
-
-        var btnMeConf = document.getElementById("u1724_div");
-        var meConfText = document.getElementById("u1725_text");
-        meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
-        var btnMeConfOn = true;
-        // medium confidence listener
-        btnMeConf.addEventListener("click", function (event) {
-          if (btnMeConfOn) {
-            this.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            btnMeConfOn = false;
-
-            annotationsList3.forEach(function (annA) {
-              meList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "none");
-                }
-              });
-            });
-          } else {
-            this.style.backgroundColor = "rgba(152, 192, 239, 1)";
-            btnMeConfOn = true;
-            annotationsList3.forEach(function (annA) {
-              meList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "block");
-                }
-              });
-            });
-          }
-        });
-
-        var btnLoConf = document.getElementById("u1726_div");
-        var loConfText = document.getElementById("u1727_text");
-        loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
-        var btnLoConfOn = true;
-
-        btnLoConf.addEventListener("click", function (event) {
-          if (btnLoConfOn) {
-            this.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            btnLoConfOn = false;
-
-            annotationsList3.forEach(function (annA) {
-              loList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "none");
-                }
-              });
-            });
-          } else {
-            this.style.backgroundColor = "rgba(152, 192, 239, 1)";
-            btnLoConfOn = true;
-            annotationsList3.forEach(function (annA) {
-              loList.forEach(function (annB) {
-                if (annA.id == annB.id) {
-                  annA.element.setAttribute("display", "block");
-                }
-              });
-            });
-          }
-        });
 
         // FILE 4
+        if (currentFile == 4) {
+          /*const mutatedAnnotations = annotations4.map((annotation) =>
+            mutateAnnotation(annotation)
+          );*/
+          console.log("analysis img 1");
+          drawAnnotations(annotations4);
+
+          var currentImageLabel = document.getElementById("currentImage");
+          if (currentFile == 4) {
+            currentImageLabel.innerText = "slide4.tif";
+          }
+
+          var reportDiv = document.getElementById("u1719_text");
+          var count = 0;
+          var hi = 0;
+          var me = 0;
+          var lo = 0;
+
+          var hiList = [];
+          var meList = [];
+          var loList = [];
+          annotationsList4.forEach(function (annotation) {
+            count += 1;
+            if (annotation.confidence > 75) {
+              hi += 1;
+              hiList.push(annotation);
+            } else if (annotation.confidence > 50) {
+              me += 1;
+              meList.push(annotation);
+            } else {
+              lo += 1;
+              loList.push(annotation);
+            }
+          });
+
+          console.log(annotationsList2);
+          console.log(allAnnotations);
+          reportDiv.innerHTML =
+            "Total found cilia count is " +
+            count +
+            " and " +
+            hi +
+            " are of high confidence level, " +
+            me +
+            " medium confidence level and " +
+            lo +
+            " low confidence level.";
+          reportDiv.style.paddingBottom = "10px";
+
+          var btnHiConf = document.getElementById("u1722_div");
+          var hiConfText = document.getElementById("u1723_text");
+          hiConfText.innerHTML = "Show cilia of high confidence (" + hi + ")";
+          var btnHiConfOn = true;
+
+          // high confidence listener
+          btnHiConf.addEventListener("click", function (event) {
+            if (btnHiConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnHiConfOn = false;
+
+              annotationsList4.forEach(function (annA) {
+                hiList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnHiConfOn = true;
+              annotationsList4.forEach(function (annA) {
+                hiList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnMeConf = document.getElementById("u1724_div");
+          var meConfText = document.getElementById("u1725_text");
+          meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
+          var btnMeConfOn = true;
+
+          // medium confidence listener
+          btnMeConf.addEventListener("click", function (event) {
+            if (btnMeConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnMeConfOn = false;
+
+              annotationsList4.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnMeConfOn = true;
+              annotationsList4.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+            
+          });
+          
+          var btnLoConf = document.getElementById("u1726_div");
+          var loConfText = document.getElementById("u1727_text");
+          loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
+          var btnLoConfOn = true;
+
+          btnLoConf.addEventListener("click", function (event) {
+            if (btnLoConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnLoConfOn = false;
+
+              annotationsList5.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnLoConfOn = true;
+              annotationsList5.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+        }
+
+        // FILE 5
+        if (currentFile == 5) {
+          /*const mutatedAnnotations = annotations5.map((annotation) =>
+            mutateAnnotation(annotation)
+          );*/
+          console.log("analysis img 1");
+          drawAnnotations(annotations5);
+
+          var currentImageLabel = document.getElementById("currentImage");
+          if (currentFile == 5) {
+            currentImageLabel.innerText = "slide5.tif";
+          }
+
+          var reportDiv = document.getElementById("u1719_text");
+          var count = 0;
+          var hi = 0;
+          var me = 0;
+          var lo = 0;
+
+          var hiList = [];
+          var meList = [];
+          var loList = [];
+          annotationsList5.forEach(function (annotation) {
+            count += 1;
+            if (annotation.confidence > 75) {
+              hi += 1;
+              hiList.push(annotation);
+            } else if (annotation.confidence > 50) {
+              me += 1;
+              meList.push(annotation);
+            } else {
+              lo += 1;
+              loList.push(annotation);
+            }
+          });
+
+          reportDiv.innerHTML =
+            "Total found cilia count is " +
+            count +
+            " and " +
+            hi +
+            " are of high confidence level, " +
+            me +
+            " medium confidence level and " +
+            lo +
+            " low confidence level.";
+          reportDiv.style.paddingBottom = "10px";
+
+          var btnHiConf = document.getElementById("u1722_div");
+          var hiConfText = document.getElementById("u1723_text");
+          hiConfText.innerHTML = "Show cilia of high confidence (" + hi + ")";
+          var btnHiConfOn = true;
+
+          // high confidence listener
+          btnHiConf.addEventListener("click", function (event) {
+            if (btnHiConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnHiConfOn = false;
+
+              annotationsList5.forEach(function (annA) {
+                hiList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnHiConfOn = true;
+              annotationsList5.forEach(function (annA) {
+                hiList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnMeConf = document.getElementById("u1724_div");
+          var meConfText = document.getElementById("u1725_text");
+          meConfText.innerHTML = "Show cilia of medium confidence (" + me + ")";
+          var btnMeConfOn = true;
+          // medium confidence listener
+          btnMeConf.addEventListener("click", function (event) {
+            if (btnMeConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnMeConfOn = false;
+
+              annotationsList5.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnMeConfOn = true;
+              annotationsList5.forEach(function (annA) {
+                meList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+
+          var btnLoConf = document.getElementById("u1726_div");
+          var loConfText = document.getElementById("u1727_text");
+          loConfText.innerHTML = "Show cilia of low confidence (" + lo + ")";
+          var btnLoConfOn = true;
+
+          btnLoConf.addEventListener("click", function (event) {
+            if (btnLoConfOn) {
+              this.style.backgroundColor = "rgba(255, 255, 255, 1)";
+              btnLoConfOn = false;
+
+              annotationsList5.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "none");
+                  }
+                });
+              });
+            } else {
+              this.style.backgroundColor = "rgba(152, 192, 239, 1)";
+              btnLoConfOn = true;
+              annotationsList5.forEach(function (annA) {
+                loList.forEach(function (annB) {
+                  if (annA.id == annB.id) {
+                    annA.element.setAttribute("display", "block");
+                  }
+                });
+              });
+            }
+          });
+        }
 
         var acceptSelectedBtn = document.getElementById("u1728");
 
@@ -9971,52 +10500,65 @@
       // ANNOTATIONS
       function drawAnnotations(annotations) {
         if (currentFile == 1 || currentFile == 2) {
-        const imageContainer = document.getElementById("imageContainer");
-        const canvas = document.getElementById("mainCanvas");
-        annotations.forEach((annotation) => {
-          const [x, y, color] = annotation;
-          const annot = new Annotation(
-            annotation[0] * 0.33,
-            annotation[1] * 0.26,
-            dotRadius,
-            annotation[2],
-            0,
-            0.3,
-            "suggested"
-          );
-        });
-      } else if (currentFile == 3) {
-        const imageContainer = document.getElementById("imageContainer");
-        const canvas = document.getElementById("mainCanvas");
-        annotations.forEach((annotation) => {
-          const [x, y, color] = annotation;
-          const annot = new Annotation(
-            annotation[0] * 0.33,
-            annotation[1] * 0.26,
-            dotRadius,
-            annotation[2],
-            0,
-            0.3,
-            "suggested"
-          );
-        });
-      }
+          const imageContainer = document.getElementById("imageContainer");
+          const canvas = document.getElementById("mainCanvas");
+          annotations.forEach((annotation) => {
+            const [x, y, color] = annotation;
+            const annot = new Annotation(
+              annotation[0] * 0.33,
+              annotation[1] * 0.26,
+              dotRadius,
+              annotation[2],
+              0,
+              0.3,
+              "suggested"
+            );
+          });
+        } else if (currentFile == 3 || currentFile == 4 || currentFile == 5) {
+          const imageContainer = document.getElementById("imageContainer");
+          const canvas = document.getElementById("mainCanvas");
+          annotations.forEach((annotation) => {
+            const [x, y, color] = annotation;
+            const annot = new Annotation(
+              annotation[0] * 0.33,
+              annotation[1] * 0.26,
+              dotRadius,
+              annotation[2],
+              0,
+              0.3,
+              "suggested"
+            );
+          });
+        }
       }
 
       function mutateAnnotation(annotation) {
         const randomChance = Math.random() * 100;
 
-        if (randomChance <= 5) {
+        if (randomChance <= 10) {
           // mutacie farby
           const randomNumber = Math.floor(Math.random() * 3); // 0, 1, or 2
-          annotation[2] =
+          annotation.fill =
             randomNumber === 0
               ? "#2CDD1D"
               : randomNumber === 1
               ? "#F03636"
               : "#0000FF";
         }
-        return annotation;
+      }
+      function mutateAnnotation2(annotation) {
+        const randomChance = Math.random() * 100;
+
+        if (randomChance <= 50) {
+          // mutacie farby
+          const randomNumber = Math.floor(Math.random() * 3); // 0, 1, or 2
+          annotation.fill =
+            randomNumber === 0
+              ? "#2CDD1D"
+              : randomNumber === 1
+              ? "#F03636"
+              : "#0000FF";
+        }
       }
       let lastMouseX = 0;
       let lastMouseY = 0;
